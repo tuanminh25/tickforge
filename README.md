@@ -24,7 +24,21 @@ tickforge client A <-> tickforge server <-> tickforge client B
 
 ## Status
 
-Day one — starting with building the server ! - Well because client without server, it has nobody else to send orders, to communicate to...
+Day two — on our way building the server - understand then mechanism-ish first and anyone who is involved ! - Well because client without server, it has nobody else to send orders, to communicate to...
+
+We are making the exchange floor first (HOSE - Hochiminh stock exchange)
+
+I just discovered about which part must be sequential, which can be parallel:
+
+- The trade board, only one person one employee can touch it at at time
+
+- Sublock it right now does not worth it, while performance can improve a little, but it can introduce deadlock: employee A locking B waiting on C - emplyoyee Z locking C waiting on B
+
+- I can make the taking in order part multithreaded or paralelly: having many employee standing at booths
+
+- However, the whole board itself must still be sequential - only one employee touches at a time (yes this is an intended duplicate line from above to remind me)
+
+Later on we gonna cosplay the client - Optiver
 
 Okay note note: tomorrow, I need you to do this: 
 
@@ -40,4 +54,15 @@ Okay note note: tomorrow, I need you to do this:
 
 - Code with tests: a plain single threaded C++ engine with the paper
 
+- Ok a hint is  that this can be our format for now :
 
+Ex1:
+Board (sellers):  Alice  SELL 30 @ 10.00
+                  Bob    SELL 50 @ 10.02
+                  Dan    SELL 40 @ 10.08
+
+Raymond arrives:  BUY 100 @ 10.05
+
+
+Ex2: with more detail
+id=1  trader=Alice  side=BUY  price=10.05  qty=100  type=LIMIT
