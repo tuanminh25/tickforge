@@ -36,4 +36,51 @@ Well after finishing with the HOSE, i will move onto being optiver
 
 Oh and yea, I need to get the order done working tomorrow
 
+5/10/26
 
++Only non-MARKET order will stay in the order book 
++Every orders in the book are of type LIMIT
++
++We will have one internal private look and then one for the client
++
++For listing problems, we will choose a data structure that is always in order 
++( my guess right now is we will implement heap ) - but stay tuned as it is the next lessson
++
++Buyer comes and buy lowest firsts
++
++Id overflow , an unsigned int 64 has 2^64 - 1, we can even reset id daily
++- we may have day field along with timestamp
++
++In our project, anything unfilled gonna be cancel 
++
++
++In term of data flow, this is what we would do: 
++
++
++
++private board the source of truth of everything 
++ie any adjustment will be done on the "private" board 
++
++and then for the public board - or the board that is being seen by other people
++
++it will only act as a read only monitor and the mech is 
++
++whenever there is any change from the private book , it will "announce" the public book - via somekind of API or something else  - will be decided in later steps
++
++that is for data flow 
++
++
++ahh freak , today time is about to sum up , tomorrow, comeback and I want you to check on this : 
++
++0. dataflow: why it said that engine does not announce to the public board, it annoucnes events, publishers listens and maintains the public board - why it say this
++
++1. Reorder the read me 
++2. A livng question about the main.cpp - you need to figure out 
++- why the whole engine is just lib and no executation
++- where in the Catch 2 lib lay the main.cpp
++- why it said there is a lot of main.cpp here and there and our engine is just static code in 1 place
++- investigate the output and template it gives 
++- what do you mean by this is not the main program or what does it mean when it say there is no main program ? 
++
++ref: https://claude.ai/chat/326d31b2-b7af-4a5d-b023-12861984f37e
++
