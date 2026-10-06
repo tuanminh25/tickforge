@@ -110,3 +110,12 @@ a < b   // false! -1 became 18446744073709551615
 ```
 
 When c++ combines unsigned with signed numbers it turns the signed into unsigned and it breaks stuff ! 
+
+Tomorrow question:
+
+Three decisions remain for order.hpp. Make them, then write the whole struct:
+
+id: you did the overflow math earlier. Is it ever subtracted or mixed with prices? Does that change signed vs unsigned?
+side and type: how do you represent BUY/SELL and LIMIT/MARKET? Look up enum class versus plain enum, and pick one with a reason.
+quantity: one field or two? Think back to the exercise. After step 3, Carol's order showed 10. What did she originally send, and does anyone still need that number?
+
