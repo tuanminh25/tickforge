@@ -66,3 +66,32 @@ Raymond arrives:  BUY 100 @ 10.05
 
 Ex2: with more detail
 id=1  trader=Alice  side=BUY  price=10.05  qty=100  type=LIMIT
+
+# Order book rules:
+- Only non-MARKET order will stay in the order book 
+- Every orders in the book are of type LIMIT
+- Buyer comes and buy lowest firsts
+
+# Data Flow:
+
+Private board being source of truth of everything
+-> All adjustment is being done on the "private" board
+
+Whenever there is a change inside the private board, it will annouces to a publisher, and that publisher will change things on the public side
+
+
+# Project layout
+notes/
+engine/
+  engine.hpp
+  engine.cpp
+  order/
+   order.hpp             # what an order book api + what it is 
+  order_book/
+   order_book.hpp        # the book public api: what it holds, what you can ask it to do, what is it 
+   order_book.cpp        # the order book implementation
+  tests/
+    engine/
+     test_engine.cpp
+    order_book/
+     test_order_book.cpp # today's 4-order exercise, as a test
