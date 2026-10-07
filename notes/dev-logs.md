@@ -88,8 +88,7 @@ For listing problems, we will choose a data structure that is always in order
 
 # 6/10/26
 
-Order is struct because we dont need
-private or protected members
+Order is struct because we have no invariant to protect
 
 price: double or float 
 
@@ -118,4 +117,11 @@ Three decisions remain for order.hpp. Make them, then write the whole struct:
 id: you did the overflow math earlier. Is it ever subtracted or mixed with prices? Does that change signed vs unsigned?
 side and type: how do you represent BUY/SELL and LIMIT/MARKET? Look up enum class versus plain enum, and pick one with a reason.
 quantity: one field or two? Think back to the exercise. After step 3, Carol's order showed 10. What did she originally send, and does anyone still need that number?
+
+# 7/10/26
+
+One of the compiler job is that it will round a struct size up to multiple of its largest member alignment
+
+ie in a Struct that have an uint64_t then that struct will eventually have the size of 8(bytes) * something 
+
 
