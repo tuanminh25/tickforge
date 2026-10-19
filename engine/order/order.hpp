@@ -9,13 +9,12 @@ namespace tickforge::engine {
     enum class OrderType : std::uint8_t { Limit, Market };
 
     struct Order {
-        std::int64_t price; // in tick, ignored for market order
-        std::int64_t remaining_qty;
-        std::uint64_t id;
-        std::uint32_t account_id;
-        Side side;
-        OrderType order_type;    
-
+        std::int64_t price = 0; // in ticks, ignored for market order
+        std::int64_t remaining_qty = 0; 
+        std::uint64_t id = 0;
+        std::uint32_t account_id = 0;
+        Side side = Side::Buy;
+        OrderType order_type = OrderType::Limit; // Limit or Market
     };
 
     static_assert(sizeof(Order) == 32);
