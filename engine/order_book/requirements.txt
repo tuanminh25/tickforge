@@ -1,0 +1,39 @@
+- ref data like lists of stock ,stock name is provided by other component! 
+- stock search features belong to other component
+
+Order Book work: matching orders! that's it. It will handle the following scenarios or tasks:
+
+1. Firstly it will have to go through the empty order book ! 
+
+    a. buy limit -> list on board
+    b. buy market -> to be decided: rejected / accepted + cancel the remainder due to no match
+    c. sell limit -> list on board
+    b. sell market -> to be decided: rejected / accepted + cancel the remainder due to no match
+
+
+// TODO: tomorrow when looking at this: finish this design doc first before coding this up ?
+2. Then it is currently one sided : either only buy or only ask
+
+Only buy side
+
+    a. buy limit -> add to current order with same buy price (how to handle different buyer/same buyer?) / add as seperate asks
+        - Condition to match ?
+        - add to current order with same buy price (how to handle different buyer/same buyer?) - what if one cancel their order?
+    b. buy market -> to be decided: rejected / accepted + cancel the remainder due to no match
+    c. sell limit -> match until remainder + list the remainder on sell side board due to no match yet
+    d. sell market -> match until remainder + cancel the remainder due to no match
+
+Only sell side
+    a. buy limit -> match until remainder + list the remainder on buy side board due to no match yet
+    b. buy market -> match until remainder + cancel the remainder due to no match
+    c. sell limit -> add to current order with same sell price (how to handle different buyer/same buyer?) / add as seperate asks
+        - Condition to match ?
+
+    d. sell market -> to be decided: rejected / accepted + cancel the remainder due to no match
+
+
+3. Then it can be both sided but not touching: ie non matching buys and asks
+
+4. Okay then it has an incoming order that "checks in" with some order 
+
+I dont know where this fit yet: user cancel their sell limit or market / buy limit or market 
