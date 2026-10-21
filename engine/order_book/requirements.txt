@@ -4,14 +4,72 @@
 Order Book work: matching orders! that's it. It will handle the following scenarios or tasks:
 
 1. Firstly it will have to go through the empty order book ! 
-
     a. buy limit -> list on board
-    b. buy market -> to be decided: rejected / accepted + cancel the remainder due to no match
+
+Context: empty board
+Input: There is an incoming order:
+    -  Side: buy
+    - Order type: limit 
+    - Price: 10
+    - Quantity: 100 
+    ( in order object  there are more things like account id and so on, but right now I dont care much because it is not needed right now)
+    - order id: 1
+    
+Output: 
+    - Emit: BUY_RESTED
+    - test: highest buy price order - return only 1 order which is the same with one above
+    - test: lowest sell price order  - return only 0 order
+
+the empty board changes from having notthing to have a single buy order on the board, displaying only quantity and price 
+
+    b. buy market -> accepted + cancel the remainder due to no match
+                        (I choose this currently because in term of thinking flow, i would just need to handle "accept" throughout all my code
+                        oh and I still need to handle cancel remainder, but remainder handling is also overlapping with with partial match anyway so
+                        right now I dont see any reason why we should go with the rejected path)
+    
+Context: empty board
+Input: There is an incoming order:
+    -  Side: buy
+    - Order type: market 
+    - Price: ? // TODO: optional, to be thought should we include this
+    - Quantity: ? // TODO: optional, to be thought should we include this
+    - order id: 1
+    
+Output: 
+    - Emit: BUY_CANCELLED
+    - test: highest buy price order -  return only 0 order
+    - test: lowest sell price order  - return only 0 order
+    
     c. sell limit -> list on board
-    b. sell market -> to be decided: rejected / accepted + cancel the remainder due to no match
+
+Context: empty board
+Input: There is an incoming order:
+    - Side: sell
+    - Order type: limit 
+    - Price: 10
+    - Quantity: 100 
+    - order id: 1
+    
+Output: 
+    - Emit: SELL_RESTED
+    - test: highest buy price order -  return only 0 order
+    - test: lowest sell price order  - return only 1 order
 
 
-// TODO: tomorrow when looking at this: finish this design doc first before coding this up ?
+    d. sell market -> accepted + cancel the remainder due to no match
+Context: empty board
+Input: There is an incoming order:
+    -  Side: buy
+    - Order type: market 
+    - Price: ? // TODO: optional, to be thought should we include this
+    - Quantity: ? // TODO: optional, to be thought should we include this
+    - order id: 1
+    
+Output: 
+    - Emit: SELL_CANCELLED
+    - test: highest buy price order -  return only 0 order
+    - test: lowest sell price order  - return only 0 order
+
 2. Then it is currently one sided : either only buy or only ask
 
 Only buy side
@@ -19,7 +77,7 @@ Only buy side
     a. buy limit -> add to current order with same buy price (how to handle different buyer/same buyer?) / add as seperate asks
         - Condition to match ?
         - add to current order with same buy price (how to handle different buyer/same buyer?) - what if one cancel their order?
-    b. buy market -> to be decided: rejected / accepted + cancel the remainder due to no match
+    b. buy market ->  accepted + cancel the remainder due to no match
     c. sell limit -> match until remainder + list the remainder on sell side board due to no match yet
     d. sell market -> match until remainder + cancel the remainder due to no match
 
@@ -29,11 +87,23 @@ Only sell side
     c. sell limit -> add to current order with same sell price (how to handle different buyer/same buyer?) / add as seperate asks
         - Condition to match ?
 
-    d. sell market -> to be decided: rejected / accepted + cancel the remainder due to no match
+    d. sell market -> rejected / accepted + cancel the remainder due to no match
 
 
 3. Then it can be both sided but not touching: ie non matching buys and asks
+    Possible actions: 
+    a. Buy limit
+    b. Sell limit
+
+
 
 4. Okay then it has an incoming order that "checks in" with some order 
+    Possible actions: 
+    a. Buy limit that matches with existing sell orders -> match then calculate the remainder 
+    b. Sell limit that matches with existing buy orders -> match then calculate the remainder 
+    c. Buy market that will just match until there is notthing else to be match or the buy quantity run out
+    d. Sell market that will just match until there is notthing else to be match or the sell quantity run out
+    (what happen if just one person upload buy limit of a stock and then post matchable sell limit/sell market of that same stock  )
+
 
 I dont know where this fit yet: user cancel their sell limit or market / buy limit or market 
