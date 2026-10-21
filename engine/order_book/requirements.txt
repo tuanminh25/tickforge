@@ -1,3 +1,10 @@
+// TODO: tomorrow hear me out - it is important that we can derive for us what is our goal for today? 
+// if is vague, then better treat everything we learn as haverst, it can be lots or less
+// if it is something that we can break down as small small things and well defined, try to chase many of them down asap
+// so far if at the end of that day and we are not ticking all the boxes, that is where we can see whether:
+// + is our goal realisic and small achievable enough in a day so far ?
+// + if it is then what else making us not achieving it? discipline? health ? back then it is a shortcut directly to beat myself up as I will fastly just mark myself as lack of discipline
+
 - ref data like lists of stock ,stock name is provided by other component! 
 - stock search features belong to other component
 
